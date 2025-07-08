@@ -44,7 +44,7 @@ $('a[href*="#"]')
 var $overlay	= $('<div id="lightboxOverlay"></div>');
 var $image		= $('<img>');
 var $caption	= $('<p></p>');
-var $close		= $('<i class="fa fa-times">X</i>');
+var $close		= $('<span class="fa fa-times">X</span>');
 
 // Just more variables
 var imageUrl;
@@ -166,39 +166,39 @@ $(function() {
       position: 'absolute',
       top: 0,
       left: '50%',
-      width: '4px',
+      width: '9px',
       height: '100%',
-      background: '#003C6E',
+      background: '#e5e5e5',
       zIndex: 3,
       cursor: 'ew-resize',
       borderRadius: '2px',
-      boxShadow: '0 0 8px rgba(0,0,0,0.15)'
+      boxShadow: '0 0 8px rgba(0,0,0,5)'
     });
     var $chevronLeft = $('<span class="before-after-chevron before-after-chevron-left" aria-hidden="true">&#x2039;</span>').css({
       position: 'absolute',
       left: '-18px',
       top: '50%',
       transform: 'translateY(-50%)',
-      fontSize: '22px',
-      color: '#003C6E',
+      fontSize: '25px',
+      color: '#e5e5e5',
       zIndex: 4,
       pointerEvents: 'none',
       userSelect: 'none',
       fontWeight: 'bold',
-      textShadow: '0 1px 4px #fff'
+      textShadow: '0 0 8px rgba(0,0,0,5)'
     });
     var $chevronRight = $('<span class="before-after-chevron before-after-chevron-right" aria-hidden="true">&#x203A;</span>').css({
       position: 'absolute',
       right: '-18px',
       top: '50%',
       transform: 'translateY(-50%)',
-      fontSize: '22px',
-      color: '#003C6E',
+      fontSize: '25px',
+      color: '#e5e5e5',
       zIndex: 4,
       pointerEvents: 'none',
       userSelect: 'none',
       fontWeight: 'bold',
-      textShadow: '0 1px 4px #fff'
+      textShadow: '0 0 8px rgba(0,0,0,5)'
     });
     $bar.append($chevronLeft, $chevronRight);
     var $label = $('<div class="before-after-label"></div>').css({
@@ -206,7 +206,7 @@ $(function() {
       left: '10px',
       bottom: '10px',
       color: '#fff',
-      background: 'rgba(0,60,110,0.85)',
+      background: 'rgba(0,0,0,0.85)',
       padding: '4px 14px',
       borderRadius: '4px',
       fontWeight: 'bold',
@@ -289,8 +289,8 @@ $(function() {
   $slides = $track.children('li');
 
   // Controls
-  var $prev = $('<button class="carousel-prev" aria-label="Anterior" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:#003C6E;color:#fff;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer;z-index:10;"><span aria-hidden="true">&#x2039;</span></button>');
-  var $next = $('<button class="carousel-next" aria-label="Siguiente" style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:#003C6E;color:#fff;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer;z-index:10;"><span aria-hidden="true">&#x203A;</span></button>');
+  var $prev = $('<button class="carousel-prev" aria-label="Anterior" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:transparent;color:#fff;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:3em;cursor:pointer;z-index:10;"><span aria-hidden="true">&#x2039;</span></button>');
+  var $next = $('<button class="carousel-next" aria-label="Siguiente" style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:transparent;color:#fff;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:3em;cursor:pointer;z-index:10;"><span aria-hidden="true">&#x203A;</span></button>');
   var $container = $slider.closest('.slider-lightbox-container');
   $container.css('position','relative');
   if ($container.find('.carousel-prev').length === 0) $container.append($prev);
