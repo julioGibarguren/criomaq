@@ -43,8 +43,8 @@ $('a[href*="#"]')
   // Set up HTML elements into variables
 var $overlay	= $('<div id="lightboxOverlay"></div>');
 var $image		= $('<img>');
-var $caption	= $('<h3></h3>');
-var $close		= $('<i class="fa fa-times"></i>');
+var $caption	= $('<p></p>');
+var $close		= $('<span class="fa fa-times">X</span>');
 
 // Just more variables
 var imageUrl;
@@ -153,112 +153,6 @@ function setSliderHeight() {
 $(window).on('load resize', setSliderHeight);
 $('#maquina-destacada-1 .maquina-slider img').on('load', setSliderHeight);
 
-$(document).ready(function() {
-  // Custom carousel slider for #sliderLightbox (5 images visible, translateX animation)
-  var $slider = $('#sliderLightbox');
-  if ($slider.length) {
-    var visible = 5;
-    var $slides = $slider.find('li');
-    var total = $slides.length;
-    var current = 0;
-    var timer;
-
-    // Wrap li elements in a track div for translation
-    if ($slider.find('.slider-track').length === 0) {
-      $slider.wrapInner('<div class="slider-track" style="display: flex; transition: transform 0.6s cubic-bezier(.4,0,.2,1);"></div>');
-    }
-    var $track = $slider.find('.slider-track');
-
-    // Clone first 'visible' slides to the end for infinite loop
-    $track.children('li').slice(0, visible).clone(true).appendTo($track);
-    total = $track.children('li').length;
-
-    // Set up slider width
-    function updateSliderWidth() {
-      var slideWidth = 100 / visible;
-      $track.children('li').css({
-        'flex': '0 0 ' + slideWidth + '%',
-        'max-width': slideWidth + '%'
-      });
-    }
-    updateSliderWidth();
-    $(window).on('resize', updateSliderWidth);
-
-    // Set initial position
-    function setPosition(animate) {
-      var slideWidth = $track.children('li').outerWidth(true);
-      var moveX = -(current * slideWidth);
-      if (animate) {
-        $track.css({
-          'transition': 'transform 0.6s cubic-bezier(.4,0,.2,1)',
-          'transform': 'translateX(' + moveX + 'px)'
-        });
-      } else {
-        $track.css({
-          'transition': 'none',
-          'transform': 'translateX(' + moveX + 'px)'
-        });
-      }
-    }
-    setPosition(false);
-
-    function nextSlide() {
-      current++;
-      setPosition(true);
-      if (current === total - visible + 1) {
-        setTimeout(function() {
-          $track.css('transition', 'none');
-          current = 0;
-          setPosition(false);
-        }, 650);
-      }
-    }
-
-    function prevSlide() {
-      if (current === 0) {
-        $track.css('transition', 'none');
-        current = total - visible;
-        setPosition(false);
-        setTimeout(function() {
-          current--;
-          setPosition(true);
-        }, 20);
-      } else {
-        current--;
-        setPosition(true);
-      }
-    }
-
-    function startAuto() {
-      timer = setInterval(nextSlide, 4000);
-    }
-    function stopAuto() {
-      clearInterval(timer);
-    }
-
-    // Chevrons
-    
-
-    $slider.parent().on('click', '.sliderLightbox-next', function(e) {
-      e.preventDefault();
-      stopAuto();
-      nextSlide();
-      startAuto();
-    });
-    $slider.parent().on('click', '.sliderLightbox-prev', function(e) {
-      e.preventDefault();
-      stopAuto();
-      prevSlide();
-      startAuto();
-    });
-
-    $slider.on('mouseenter', function() { stopAuto(); });
-    $slider.on('mouseleave', function() { startAuto(); });
-
-    startAuto();
-  }
-});
-
 // Simple Before & After Slider
 $(function() {
   $('.before-after-slider').each(function() {
@@ -272,39 +166,39 @@ $(function() {
       position: 'absolute',
       top: 0,
       left: '50%',
-      width: '4px',
+      width: '9px',
       height: '100%',
-      background: '#003C6E',
+      background: '#e5e5e5',
       zIndex: 3,
       cursor: 'ew-resize',
       borderRadius: '2px',
-      boxShadow: '0 0 8px rgba(0,0,0,0.15)'
+      boxShadow: '0 0 8px rgba(0,0,0,5)'
     });
     var $chevronLeft = $('<span class="before-after-chevron before-after-chevron-left" aria-hidden="true">&#x2039;</span>').css({
       position: 'absolute',
       left: '-18px',
       top: '50%',
       transform: 'translateY(-50%)',
-      fontSize: '22px',
-      color: '#003C6E',
+      fontSize: '25px',
+      color: '#e5e5e5',
       zIndex: 4,
       pointerEvents: 'none',
       userSelect: 'none',
       fontWeight: 'bold',
-      textShadow: '0 1px 4px #fff'
+      textShadow: '0 0 8px rgba(0,0,0,5)'
     });
     var $chevronRight = $('<span class="before-after-chevron before-after-chevron-right" aria-hidden="true">&#x203A;</span>').css({
       position: 'absolute',
       right: '-18px',
       top: '50%',
       transform: 'translateY(-50%)',
-      fontSize: '22px',
-      color: '#003C6E',
+      fontSize: '25px',
+      color: '#e5e5e5',
       zIndex: 4,
       pointerEvents: 'none',
       userSelect: 'none',
       fontWeight: 'bold',
-      textShadow: '0 1px 4px #fff'
+      textShadow: '0 0 8px rgba(0,0,0,5)'
     });
     $bar.append($chevronLeft, $chevronRight);
     var $label = $('<div class="before-after-label"></div>').css({
@@ -312,7 +206,7 @@ $(function() {
       left: '10px',
       bottom: '10px',
       color: '#fff',
-      background: 'rgba(0,60,110,0.85)',
+      background: 'rgba(0,0,0,0.85)',
       padding: '4px 14px',
       borderRadius: '4px',
       fontWeight: 'bold',
@@ -372,3 +266,91 @@ $(function() {
     });
   });
 });
+
+// --- Simple Infinite Loop Lightbox Slider for #sliderLightbox ---
+(function(){
+  var $slider = $('#sliderLightbox');
+  if (!$slider.length) return;
+  var $slides = $slider.find('li');
+  var slideCount = $slides.length;
+  var current = 0;
+  var slidesToShow = window.innerWidth < 768 ? 1 : 4;
+
+  // Wrap slides in a track for sliding
+  if ($slider.find('.carousel-track').length === 0) {
+    $slider.wrapInner('<div class="carousel-track" style="display:flex;transition:transform 0.5s cubic-bezier(.4,0,.2,1);"></div>');
+  }
+  var $track = $slider.find('.carousel-track');
+  $track.css({width: '100%', display: 'flex'});
+  $slides = $track.children('li');
+
+  // Clone slides for infinite loop
+  $track.children('li').slice(0, slidesToShow).clone(true).appendTo($track);
+  $slides = $track.children('li');
+
+  // Controls
+  var $prev = $('<button class="carousel-prev" aria-label="Anterior" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:transparent;color:#fff;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:3em;cursor:pointer;z-index:10;"><span aria-hidden="true">&#x2039;</span></button>');
+  var $next = $('<button class="carousel-next" aria-label="Siguiente" style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:transparent;color:#fff;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:3em;cursor:pointer;z-index:10;"><span aria-hidden="true">&#x203A;</span></button>');
+  var $container = $slider.closest('.slider-lightbox-container');
+  $container.css('position','relative');
+  if ($container.find('.carousel-prev').length === 0) $container.append($prev);
+  if ($container.find('.carousel-next').length === 0) $container.append($next);
+
+  function updateSlidesToShow() {
+    slidesToShow = window.innerWidth < 768 ? 1 : 4;
+    $track.css('transition','none');
+    setTimeout(function(){
+      $track.css('transition','transform 0.5s cubic-bezier(.4,0,.2,1)');
+    }, 50);
+    goTo(current);
+  }
+
+  function goTo(idx) {
+    current = idx;
+    var slideWidth = $slider.width() / slidesToShow;
+    $slides = $track.children('li');
+    $slides.css({
+      width: slideWidth + 'px',
+      flex: '0 0 ' + slideWidth + 'px',
+      'margin': '0 5px'
+    });
+    // Remove margin-right from the last visible slide to avoid extra space at the end
+    $slides.css('margin', '0 5px');
+    for (var i = slidesToShow - 1; i < $slides.length; i += slidesToShow) {
+      $slides.eq(i).css('margin-right', '5');
+    }
+    $track.css('width', (slideWidth * $slides.length + 10 * ($slides.length - 1)) + 'px');
+    $track.css('transform', 'translateX(' + (-current * (slideWidth + 10)) + 'px)');
+  }
+
+  function next() {
+    if (current < slideCount) {
+      goTo(current + 1);
+    } else {
+      goTo(current + 1);
+      setTimeout(function(){
+        $track.css('transition','none');
+        goTo(0);
+        setTimeout(function(){ $track.css('transition','transform 0.5s cubic-bezier(.4,0,.2,1)'); }, 50);
+      }, 500);
+    }
+  }
+  function prev() {
+    if (current > 0) {
+      goTo(current - 1);
+    } else {
+      $track.css('transition','none');
+      goTo(slideCount);
+      setTimeout(function(){
+        $track.css('transition','transform 0.5s cubic-bezier(.4,0,.2,1)');
+        goTo(slideCount-1);
+      }, 50);
+    }
+  }
+
+  $next.on('click', function(e){ e.preventDefault(); next(); });
+  $prev.on('click', function(e){ e.preventDefault(); prev(); });
+
+  $(window).on('resize', updateSlidesToShow);
+  updateSlidesToShow();
+})();
