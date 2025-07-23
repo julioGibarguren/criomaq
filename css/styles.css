@@ -102,6 +102,15 @@ padding: 0;}
 }
 .green-container ul li{
     margin-bottom:10px;
+    width: 70%;
+}
+
+.green-container .image-content{
+  text-align: center;
+}
+
+.green-container img {
+  width: 70%;
 }
 .blue-container{
     background-color:#003C6E;
@@ -156,6 +165,11 @@ padding: 0;}
   font-size: 20px;
   font-weight: 500;
 }
+.higlight-text.medium {
+  font-size: 17px;
+  font-weight: 400;
+  list-style-type: disc;
+}
 .products .higlight-text {
     font-size: 20px;
     font-weight: 500;
@@ -188,6 +202,8 @@ padding: 0;}
     width:auto;
     height:305px;
 }
+
+
 .gray-container{
     background-color: #E4E4E4;
     padding: 20px 0 60px 0;
@@ -437,10 +453,10 @@ h3 {
       height: 100%;
     }
     .is-mobile {
-      display: block;
+      display: block !important;
     }
     .is-desktop {
-      display:none;
+      display: none !important;
     }
     .before-after-slider{
       margin: 32px 0 5px;
@@ -448,10 +464,31 @@ h3 {
     .how-it-work img {
 width: 100%;
     }
+    .aplicaciones-hielo-seco{
+      margin-bottom: 40px;
+    } 
+
+    .green-container img {
+      width: 100%;
+      margin-top: 20px;
+    }
 }
 
 @media screen and (min-width: 980px){
-    .hero { width: 980px; }    
+    .hero { width: 980px; }  
+    .aplicaciones-hielo-seco {
+      display: flex;
+    } 
+
+    .aplicaciones-hielo-seco .col-md-4 {
+      padding: 30px;
+    }
+    
+    .aplicaciones-hielo-seco .col-md-4:nth-child(2) {
+      border:1px solid rgba(255,255,255,0.5);
+      border-bottom: none;
+      border-top: none;
+    }
 }
 @media screen and (max-width: 640px){
     .hero h1 { font-size: 4em; }    
